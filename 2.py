@@ -23,25 +23,21 @@ class Solution(object):
         :type l2: ListNode
         :rtype: ListNode
         """
-        listnum1 = []
-        listnum2 = []
+        listnum1 = ""
+        listnum2 = ""
         while l1 != None:
-            listnum1.append(l1.val)
+            listnum1 = str(l1.val) + listnum1
             l1 = l1.next
         while l2 != None:
-            listnum2.append(l2.val)
+            listnum2 = str(l2.val) + listnum2
             l2 = l2.next
 
-        value_1 = reduce((lambda x1, x2: 10 * x1 + x2), listnum1)
-        value_2 = reduce(lambda x1, x2: 10 * x1 + x2, listnum2)
-        value = value_1 + value_2
+        value = int(listnum1) + int(listnum2)
         l3 = ListNode(0)
-        p = ListNode(0)
         p = l3
-        for x in map(int, str(value))[::-1][:-1]:
+        for x in str(value)[::-1][:-1]:
             l3.val = x
-            l3.next = temp = ListNode(None)
+            l3.next = ListNode(None)
             l3 = l3.next
-        l3.val = int(str(value)[0])
+        l3.val = str(value)[0]
         return p
-
