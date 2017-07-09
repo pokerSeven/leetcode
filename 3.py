@@ -15,22 +15,25 @@ class Solution(object):
         :type s: str
         :rtype: int
         """
+        if s == "":
+            return 0
         start = 0
-        stop  = 0
+        stop = 0
         start_n = 0
         stop_n = 0
         dict = {}
-        for i,x in enumerate(s):
-            if dict.get(x) is not None:
+        for i, x in enumerate(s):
+            stop_n = i
+            if dict.get(x) is not None and start_n <= dict.get(x):
                 stop_n = i - 1
-                if stop - start < stop_n -start_n:
+                if stop - start < stop_n - start_n:
                     stop = stop_n
                     start = start_n
                 start_n = dict[x] + 1
             dict[x] = i
-            print start,stop
-        if stop == 0 and start == 0:
+        if stop - start < stop_n - start_n:
+            stop = stop_n
+            start = start_n
+        if stop == 0:
             return 1
         return stop - start + 1
-
-
