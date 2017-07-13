@@ -42,8 +42,34 @@ class Solution(object):
             stop = stop - 1
         return True
 
+class Solution1(object):
+    def longestPalindrome(self,s):
+        if s == "":
+            return ""
+        new_s = "$" + "#" + "#".join(s) + "#"
 
-s = Solution()
-print s.longestPalindrome(
-    "abcda")
+        max_right = 0
+        pos = 0
+        RL = [0 for i in new_s]
+        max_pos = 0
+        for i in range(len(new_s)):
+            if i <= max_right:
+                RL[i] = min(RL[2*pos -i],max_right - i)
+            k = RL[i]
+            while i - k >= 0 and i + k < len(new_s) and new_s[i - k] == new_s[i+k]:
+                k += 1
+            RL[i] = k
+            if RL[i] + i > max_right:
+                max_right = RL[i] + i
+                pos= i
+
+            if RL[i] > RL[max_pos]:
+                max_pos = i
+        return new_s[max_pos -RL[max_pos] + 1:max_pos + RL[max_pos] - 1].replace("#","")
+
+
+
+
+s = Solution1()
+print s.longestPalindrome("abbbv")
 #print s.isPalindrome("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabcaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",0,999)
