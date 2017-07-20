@@ -15,7 +15,7 @@ class Solution(object):
         result = 0
         i = 0
         if strs == []:
-            return 0
+            return ""
         while True:
             c = ""
             for x in strs:
@@ -24,7 +24,7 @@ class Solution(object):
                 if len(x) > i and x[i] == c:
                     pass
                 else:
-                    return i
+                    return strs[1][:i]
             i += 1
 s = Solution()
 print s.longestCommonPrefix(["1","12"])
