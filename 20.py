@@ -7,37 +7,30 @@ The brackets must close in the correct order, "()" and "()[]{}" are all valid bu
 
 """
 
+
 class Solution(object):
     def isValid(self, s):
         """
         :type s: str
         :rtype: bool
         """
-        d = {"(" : 0, "{": 0,"[":0}
+        d_push = {"(": ")", "[": "]", "{": "}"}
+        d_pop = {")": "(", "]": "[", "}": "{"}
+        d_stack = []
         for x in s:
-            if d.get(x) is not None:
-                d[x] += 1
-
+            if d_push.has_key(x):
+                d_stack.append(x)
             else:
-                if x is ")":
-                    if d.get("(") <= 0:
-                        return False
-                    else:
-                        d["("] -= 1
-                if x is "}":
-                    if d.get("{") <= 0:
-                        return False
-                    else:
-                        d["{"] -= 1
-                if x is "]":
-                    if d.get("[") <= 0:
-                        return False
-                    else:
-                        d["["] -= 1
-        for _,i in d.items():
-            if i != 0:
-                return False
-        return True
+                if len(d_stack) > 0 and d_stack[-1] == d_pop.get(x):
+                    d_stack.pop()
+                else:
+                    return False
+        if d_stack:
+            return False
+        else:
+            return True
+
+
 s = Solution()
-print s.isValid("{}{}()()({")
-print s.isValid("{}{}()()")
+print s.isValid("(")
+print s.isValid("]")
