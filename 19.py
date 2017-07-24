@@ -10,23 +10,49 @@ Note:
 Given n will always be valid.
 Try to do this in one pass.
 """
-
 class Solution(object):
-    class i_node(object):
-        node = None
-        n = 0
-        def __init__(self,no):
-            self.node = no
-            self.n = 1
-        def pp(self,x):
-            if x >self.n:
-                self.n += 1
-            else:
-                self.node = self.node.next
     def removeNthFromEnd(self, head, n):
         """
         :type head: ListNode
         :type n: int
         :rtype: ListNode
         """
+        start = ListNode(0)
+        slow = start
+        fast = start
+        for i in range(n + 1):
+            fast = fast.next
+        while fast != None:
+            slow = slow.next
+            fast = fast.next
+        slow.next = slow.next.next
+        return start.next
+
+
+class Solution1(object):
+    def removeNthFromEnd(self, head, n):
+        """
+        :type head: ListNode
+        :type n: int
+        :rtype: ListNode
+        """
+        if head == None:
+            return None
+        self.pre_node = None
+        self.node = head
+        self.w = 0
+        self.p_node = head
+        while self.p_node != None:
+            if self.w < n:
+                self.w += 1
+            else:
+                self.pre_node = self.node
+                self.node = self.node.next
+            self.p_node = self.p_node.next
+        if self.node != head:
+            self.pre_node.next = self.pre_node.next.next
+            return head
+        else:
+            return head.next
+
 
