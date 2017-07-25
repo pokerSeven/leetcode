@@ -1,7 +1,8 @@
-p = ["fdf","rt"]
-r = p
-def xx(d):
-	d[0] = 1
-print p
-xx(p)
-print p,r
+class xx(object):
+	def dd(self):
+		pre ,pre.next = self,2
+		print self.next
+		pre.next = 4
+		print self.next
+
+xx().dd()
