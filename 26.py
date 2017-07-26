@@ -25,6 +25,7 @@ class Solution(object):
 			if i != 0 and nums[i] == nums[i - 1]:
 				i += 1
 				continue
+			nums[n] = nums[i]
 			n += 1
 			i += 1
 		return n
